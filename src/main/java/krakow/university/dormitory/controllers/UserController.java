@@ -3,13 +3,14 @@ package krakow.university.dormitory.controllers;
 import krakow.university.dormitory.entities.User;
 import krakow.university.dormitory.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.ui.Model;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class UserController {
 
     @Autowired
@@ -17,7 +18,6 @@ public class UserController {
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("activePage", "home");
         return "home";
     }
 
@@ -32,26 +32,22 @@ public class UserController {
     }
 
     @GetMapping("/facilities")
-    public String facilities(Model model) {
-        model.addAttribute("activePage", "facilities");
+    public String facilities() {
         return "facilities";
     }
 
     @GetMapping("/info")
-    public String info(Model model) {
-        model.addAttribute("activePage", "info");
+    public String info() {
         return "info";
     }
 
     @GetMapping("/reservations")
-    public String reservations(Model model) {
-        model.addAttribute("activePage", "reservations");
+    public String reservations() {
         return "reservations";
     }
 
     @GetMapping("/news")
-    public String news(Model model) {
-        model.addAttribute("activePage", "news");
+    public String news() {
         return "news";
     }
 }

@@ -56,3 +56,67 @@
     border-radius: 8px;
     margin-bottom: 2rem;
 }
+
+.icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #e6f2ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    background: white;
+    padding: 2rem 3rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-container img.logo {
+    max-width: 100px;
+    margin-bottom: 1rem;
+}
+
+.login-container h2 {
+    color: #005580;
+    margin-bottom: 1.5rem;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #3399ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login-container button:hover {
+    background-color: #007acc;
+}
+
+.login-container .message {
+    margin-top: 1rem;
+    color: red;
+}
