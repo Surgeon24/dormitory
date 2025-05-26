@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .defaultSuccessUrl("/users", true)
+                .defaultSuccessUrl("/home", true)
                 .and()
                 .userDetailsService(userDetailsService);
 

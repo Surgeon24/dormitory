@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dormitory Management System</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<nav th:replace="~{fragments/navbar :: navbar(activePage='home')}"></nav>
+
+<main class="container">
+    <section class="hero">
+        <h1>Welcome to Our Dormitory</h1>
+        <p>Your comfortable student accommodation</p>
+        <div class="cta-buttons">
+            <a th:href="@{/facilities}" class="btn-primary">View Facilities</a>
+            <a th:href="@{/reservations}" class="btn-secondary">My Reservations</a>
+        </div>
+    </section>
+
+    <section class="quick-links">
+        <h2>Quick Access</h2>
+        <div class="links-grid">
+            <a th:href="@{/facilities}" class="link-card">
+                <img th:src="@{/images/wifi-icon.png}" alt="Facilities">
+                <span>Facilities</span>
+            </a>
+            <a th:href="@{/info}" class="link-card">
+                <img th:src="@{/images/info-icon.png}" alt="Info">
+                <span>Dormitory Info</span>
+            </a>
+            <a th:href="@{/news}" class="link-card">
+                <img th:src="@{/images/news-icon.png}" alt="News">
+                <span>Latest News</span>
+            </a>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

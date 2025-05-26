@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="navbar(activePage)" class="navbar">
+    <a th:classappend="${activePage == 'home'} ? 'active'" th:href="@{/}">Home</a>
+    <a th:classappend="${activePage == 'facilities'} ? 'active'" th:href="@{/facilities}">Facilities</a>
+    <a th:classappend="${activePage == 'info'} ? 'active'" th:href="@{/info}">Info</a>
+    <a th:classappend="${activePage == 'news'} ? 'active'" th:href="@{/news}">News</a>
+    <a th:classappend="${activePage == 'reservations'} ? 'active'" th:href="@{/reservations}">My Reservations</a>
+    <div class="auth-buttons">
+        <a th:href="@{/login}" class="btn-login">Login</a>
+        <a th:href="@{/register}" class="btn-register">Register</a>
+    </div>
+</nav>
+</body>
+</html>

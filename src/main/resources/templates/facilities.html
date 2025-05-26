@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Our Facilities | Dormitory</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<nav th:replace="~{fragments/navbar :: navbar(activePage='facilities')}"></nav>
+
+<main class="container">
+    <section class="facilities-hero">
+        <h1>Our Facilities</h1>
+        <p>Discover what we offer to make your stay comfortable</p>
+    </section>
+
+    <div class="facilities-grid">
+        <div class="facility-card">
+            <img th:src="@{/images/wifi-icon.png}" alt="Wi-Fi">
+            <h3>High-Speed Wi-Fi</h3>
+            <p>Free unlimited internet access throughout the dormitory</p>
+        </div>
+
+        <!-- Добавьте другие удобства по аналогии -->
+    </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>
