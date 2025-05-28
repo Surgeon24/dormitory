@@ -9,19 +9,34 @@
 <nav th:replace="~{fragments/navbar :: navbar(activePage='facilities')}"></nav>
 
 <main class="container">
-    <section class="facilities-hero">
-        <h1>Our Facilities</h1>
-        <p>Discover what we offer to make your stay comfortable</p>
+    <section class="welcome-section">
+        <div class="welcome-card-text">
+            <h1>Our Facilities</h1>
+            <p>Here you can explore all shared spaces available in your dormitory. Click on any facility to view details and make a reservation.</p>
+        </div>
     </section>
 
     <div class="facilities-grid">
         <div class="facility-card">
-            <img th:src="@{/images/wifi-icon.png}" alt="Wi-Fi">
-            <h3>High-Speed Wi-Fi</h3>
-            <p>Free unlimited internet access throughout the dormitory</p>
+            <img th:src="@{/images/laundry-icon.png}" alt="Laundry" class="facility-icon">
+            <h3>Laundry</h3>
+            <p>Room with a washing machine and a dryer. You can also borrow an iron or a dryer rack.</p>
+            <a th:href="@{/reserve/laundry}" class="primary-btn">Reserve</a>
         </div>
 
-        <!-- Добавьте другие удобства по аналогии -->
+        <div class="facility-card">
+            <img th:src="@{/images/study-room-icon.png}" alt="Study room" class="facility-icon">
+            <h3>Study Room</h3>
+            <p>A quiet open space intended for group or individual study.</p>
+            <a th:href="@{/reserve/study}" class="primary-btn">Reserve</a>
+        </div>
+
+        <div class="facility-card">
+            <img th:src="@{/images/gym-icon.png}" alt="Gym" class="facility-icon">
+            <h3>Gym</h3>
+            <p>Fully equipped gym available to all dormitory residents.</p>
+            <a th:href="@{/reserve/gym}" class="primary-btn">Reserve</a>
+        </div>
     </div>
 </main>
 
