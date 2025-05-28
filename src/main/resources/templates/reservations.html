@@ -1,1 +1,30 @@
-reservations page
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Reservations</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<nav th:replace="~{fragments/navbar :: navbar(activePage='reservations')}"></nav>
+
+<main class="container">
+    <h1>My Reservations</h1>
+
+    <div class="reservations-list">
+        <div th:if="${reservations.isEmpty()}">
+            <p>You have no reservations.</p>
+        </div>
+        <div th:each="reservation : ${reservations}" class="reservation-card">
+            <p>
+                Room ID: <span th:text="${reservation.roomId}"></span><br>
+                Date: <span th:text="${reservation.date}"></span><br>
+                Time: <span th:text="${reservation.timeStart}"></span> - <span th:text="${reservation.timeStop}"></span>
+            </p>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

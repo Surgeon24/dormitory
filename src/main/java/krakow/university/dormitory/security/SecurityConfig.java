@@ -41,6 +41,7 @@ public class SecurityConfig {
                 // access to login page to everyone
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/my-reservations").authenticated()
                         .anyRequest().authenticated()
                 )
 
