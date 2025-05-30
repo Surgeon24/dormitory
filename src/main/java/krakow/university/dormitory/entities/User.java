@@ -7,13 +7,23 @@ import jakarta.persistence.*;
 public class User {
 
     @Id
+    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
 
+    @Column(name = "user_name")
     private String userName;
+
+    @Column(name = "user_surname")
     private String userSurname;
+
+    @Column(name = "user_email")
     private String userEmail;
-    private int userIsActive;
+
+    @Column(name = "user_is_active")
+    private Integer userIsActive;
+
+    @Column(name = "user_password")
     private String userPassword;
 
     public int getUserId() {
@@ -48,11 +58,11 @@ public class User {
         this.userEmail = userEmail;
     }
 
-    public int getUserIsActive() {
+    public Integer getUserIsActive() {
         return userIsActive;
     }
 
-    public void setUserIsActive(int userIsActive) {
+    public void setUserIsActive(Integer userIsActive) {
         this.userIsActive = userIsActive;
     }
 
@@ -62,5 +72,17 @@ public class User {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", userSurname='" + userSurname + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", userIsActive=" + userIsActive +
+                ", userPassword='" + userPassword + '\'' +
+                '}';
     }
 }

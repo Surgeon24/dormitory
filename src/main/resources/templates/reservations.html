@@ -17,9 +17,9 @@
         </div>
         <div th:each="reservation : ${reservations}" class="reservation-card">
             <p>
-                Room ID: <span th:text="${reservation.roomId}"></span><br>
-                Date: <span th:text="${reservation.date}"></span><br>
-                Time: <span th:text="${reservation.timeStart}"></span> - <span th:text="${reservation.timeStop}"></span>
+                Room ID: <span th:text="${reservation.reservationRoomId}"></span><br>
+                Date: <span th:text="${reservation.reservationDate}"></span><br>
+                Time: <span th:text="${reservation.reservationTimeStart}"></span> - <span th:text="${reservation.reservationTimeStop}"></span>
             </p>
         </div>
     </div>
