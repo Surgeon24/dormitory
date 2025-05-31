@@ -9,14 +9,20 @@ public class RoomAvailability {
     @EmbeddedId
     private RoomAvailabilityId id;
 
+    @Column(name = "availability_id")
+    private Integer availabilityId;
+
+    @Column(name = "room_id")
+    private Integer roomId;
+
     @ManyToOne
     @MapsId("roomId")
-    @JoinColumn(name = "room_id")
+    @JoinColumn(name = "room_id", insertable = false, updatable = false)
     private Room room;
 
     @ManyToOne
     @MapsId("availabilityId")
-    @JoinColumn(name = "availability_id")
+    @JoinColumn(name = "availability_id", insertable = false, updatable = false)
     private Availability availability;
 
     public RoomAvailabilityId getId() {
@@ -25,6 +31,22 @@ public class RoomAvailability {
 
     public void setId(RoomAvailabilityId id) {
         this.id = id;
+    }
+
+    public Integer getAvailabilityId() {
+        return availabilityId;
+    }
+
+    public void setAvailabilityId(Integer availabilityId) {
+        this.availabilityId = availabilityId;
+    }
+
+    public Integer getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Integer roomId) {
+        this.roomId = roomId;
     }
 
     public Room getRoom() {
@@ -47,6 +69,8 @@ public class RoomAvailability {
     public String toString() {
         return "RoomAvailability{" +
                 "id=" + id +
+                ", availabilityId=" + availabilityId +
+                ", roomId=" + roomId +
                 ", room=" + room +
                 ", availability=" + availability +
                 '}';
