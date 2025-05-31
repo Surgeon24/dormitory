@@ -14,12 +14,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> getAllUsers() {
-        return userRepository.getAllUsers();
-    }
-
-    public User getByEmail(String email) {
-        return userRepository.findByUserEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User with email " + email + " not found"));
+    public User findByUserEmail(String userEmail) {
+        return userRepository.findByUserEmail(userEmail)
+                .orElseThrow(() -> new UsernameNotFoundException("User with email " + userEmail + " not found"));
     }
 }
