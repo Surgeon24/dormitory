@@ -4,26 +4,32 @@
     <meta charset="UTF-8">
     <title th:text="'Room - ' + ${room.roomName}">Room | Dormitory</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 <nav th:replace="~{fragments/navbar :: navbar(activePage='room')}"></nav>
 
-<main class="container">
-    <section class="room-detail">
-        <a th:href="@{'/reserve/' + ${roomFunction}}" class="secondary-btn">Back</a>
-        <h1 th:text="${room.roomName}">Room Name</h1>
-        <p><strong>Function:</strong> <span th:text="${room.roomFunction}">Function</span></p>
-        <p><strong>Building:</strong> <span th:text="${room.roomBuilding.buildingName}">Building</span></p>
-        <p><strong>Address:</strong> <span th:text="${room.roomBuilding.buildingAddress}">Address</span></p>
-        <p><strong>Capacity:</strong> <span th:text="${room.roomMaxCapacity}">0</span></p>
+<main class="room-wrapper">
+    <section class="room-detail-card">
+        <a th:href="@{'/reserve/' + ${roomFunction}}" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> Back
+        </a>
+
+        <h1><i class="fa-solid fa-door-open"></i> <span th:text="${room.roomName}">Room Name</span></h1>
+
+        <ul class="room-info">
+            <li><i class="fa-solid fa-tags"></i> <strong>Function:</strong> <span th:text="${room.roomFunction}">Function</span></li>
+            <li><i class="fa-solid fa-building"></i> <strong>Building:</strong> <span th:text="${room.roomBuilding.buildingName}">Building</span></li>
+            <li><i class="fa-solid fa-location-dot"></i> <strong>Address:</strong> <span th:text="${room.roomBuilding.buildingAddress}">Address</span></li>
+            <li><i class="fa-solid fa-users"></i> <strong>Capacity:</strong> <span th:text="${room.roomMaxCapacity}">0</span></li>
+        </ul>
     </section>
 
-    <!-- Reservation Form -->
-    <section class="room-reservation-form">
-        <h2>Make a Reservation</h2>
+    <section class="room-reservation-form card">
+        <h2><i class="fa-solid fa-calendar-plus"></i> Make a Reservation</h2>
 
-        <div th:if="${error}" style="color: red;" th:text="${error}"></div>
-        <div th:if="${success}" style="color: green;" th:text="${success}"></div>
+        <div th:if="${error}" class="msg error" th:text="${error}"></div>
+        <div th:if="${success}" class="msg success" th:text="${success}"></div>
 
         <form th:action="@{'/reserve/room/' + ${room.roomId}}" method="post">
             <input type="hidden" name="userId" value="1" />
@@ -41,20 +47,8 @@
         </form>
     </section>
 
-    <section class="room-availability">
-        <h2>Availabilities</h2>
-        <p th:if="${#lists.isEmpty(availabilities)}">No availability data for this room.</p>
-        <ul th:if="${!#lists.isEmpty(availabilities)}">
-            <li th:each="ra : ${availabilities}">
-                <span th:text="${weekdayNames[ra.availability.availabilityWeekday]}">Day</span>:
-                <span th:text="${availabilityStartTimes[ra.availability.availabilityId]}">Start</span> -
-                <span th:text="${availabilityStopTimes[ra.availability.availabilityId]}">End</span>
-            </li>
-        </ul>
-    </section>
-
-    <section class="room-reservations">
-        <h2>Upcoming Reservations</h2>
+    <section class="room-reservations card">
+        <h2><i class="fa-solid fa-clock"></i> Upcoming Reservations</h2>
 
         <div class="button-group">
             <a th:href="@{'/reserve/room/' + ${room.roomId} + '?week=current'}"
@@ -68,6 +62,7 @@
         <p th:if="${#lists.isEmpty(reservations)}">No reservations made for this week.</p>
         <ul th:if="${!#lists.isEmpty(reservations)}">
             <li th:each="res : ${reservations}">
+                <i class="fa-solid fa-calendar-day"></i>
                 <span th:text="${res.reservationDate}">Date</span>,
                 <strong>from</strong> <span th:text="${reservationStartTimes[res.reservationId]}">Start</span>
                 <strong>to</strong> <span th:text="${reservationStopTimes[res.reservationId]}">End</span>
@@ -75,6 +70,7 @@
         </ul>
     </section>
 </main>
+
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 

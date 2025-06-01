@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -69,6 +70,18 @@ public class RoomController {
                 6, "Sunday"
         );
 
+        LocalDate startOfWeek;
+        if ("next".equals(week)) {
+            startOfWeek = today.with(DayOfWeek.MONDAY).plusWeeks(1);
+        } else {
+            startOfWeek = today.with(DayOfWeek.MONDAY);
+        }
+
+        List<String> weekDates = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            weekDates.add(startOfWeek.plusDays(i).toString());
+        }
+
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
         Map<Integer, String> availabilityStartTimes = new HashMap<>();
@@ -101,6 +114,28 @@ public class RoomController {
             }
         }
 
+        Map<String, Set<Integer>> reservedSlots = new HashMap<>();
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_DATE;
+
+        for (Reservation res : reservations) {
+            String dateStr = res.getReservationDate().format(dateFormatter);
+            int start = res.getReservationTimeStart();
+            int end = res.getReservationTimeStop();
+
+            int roundedStart = (start / 60) * 60;
+            int roundedEnd = ((end + 59) / 60) * 60;
+
+            reservedSlots.putIfAbsent(dateStr, new HashSet<>());
+            for (int t = roundedStart; t < roundedEnd; t += 60) {
+                reservedSlots.get(dateStr).add(t);
+            }
+        }
+
+        model.addAttribute("reservedSlots", reservedSlots);
+        model.addAttribute("dateFormatter", dateFormatter);
+
+
         model.addAttribute("reservationForm", new ReservationForm());
         model.addAttribute("room", room);
         model.addAttribute("roomFunction", room.getRoomFunction());
@@ -113,6 +148,7 @@ public class RoomController {
         model.addAttribute("reservationStopTimes", reservationStopTimes);
         model.addAttribute("selectedWeek", week);
         model.addAttribute("allowedDates", allowedDates);
+        model.addAttribute("weekDates", weekDates);
 
         return "room";
     }
