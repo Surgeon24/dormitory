@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Room List - ' + ${roomFunction}">Room List | Dormitory</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<nav th:replace="~{fragments/navbar :: navbar(activePage='room-list')}"></nav>
+
+<main class="container">
+    <section class="room-list-header">
+        <a th:href="'/facilities/'" class="secondary-btn">Back</a>
+        <h1 th:text="'Available ' + ${roomFunction} + ' rooms'">Room List</h1>
+        <p th:if="${#lists.isEmpty(rooms)}">No rooms available at the moment.</p>
+    </section>
+
+    <section class="filter-section" th:if="${!#lists.isEmpty(buildingNames)}">
+        <label for="buildingFilter">Filter by building:</label>
+        <select id="buildingFilter">
+            <option value="all">All Buildings</option>
+            <option th:each="name : ${buildingNames}" th:value="${name}" th:text="${name}"></option>
+        </select>
+    </section>
+
+    <div class="room-grid" th:if="${!#lists.isEmpty(rooms)}">
+        <a th:each="room : ${rooms}" th:href="@{'/reserve/room/' + ${room.roomId}}" class="room-card-link">
+            <div class="room-card" th:attr="data-building=${room.roomBuilding.buildingName}">
+            <div class="room-icon">🏠</div>
+                <div class="room-info">
+                    <h2 th:text="${room.roomName}">Room Name</h2>
+                    <p><strong>Building:</strong> <span th:text="${room.roomBuilding.buildingName}">Building Name</span></p>
+                    <p><strong>Capacity:</strong> <span th:text="${room.roomMaxCapacity}">0</span></p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const filterSelect = document.getElementById("buildingFilter");
+        const roomCards = document.querySelectorAll(".room-card-link");
+
+        filterSelect.addEventListener("change", function () {
+            const selected = this.value;
+            roomCards.forEach(card => {
+                const building = card.querySelector(".room-card").getAttribute("data-building");
+                card.style.display = (selected === "all" || building === selected) ? "block" : "none";
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
