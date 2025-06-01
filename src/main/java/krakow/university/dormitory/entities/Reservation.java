@@ -36,7 +36,7 @@ public class Reservation {
     private User reservationUser;
 
     @ManyToOne
-    @JoinColumn(name = "reservation_room_id", insertable = false, updatable = false)
+    @JoinColumn(name = "reservation_room_id", referencedColumnName = "room_id", insertable = false, updatable = false)
     private Room reservationRoom;
 
     public Integer getReservationId() {

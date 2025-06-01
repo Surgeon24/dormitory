@@ -11,31 +11,83 @@
 <main class="container">
     <h1>My Reservations</h1>
 
+    <div class="filter">
+        <a th:if="${showFinished}" th:href="@{/reservations(showFinished=false)}" class="button">
+            Hide finished
+        </a>
+        <a th:if="${!showFinished}" th:href="@{/reservations(showFinished=true)}" class="button">
+            Show finished
+        </a>
+    </div>
+
+
     <div class="reservations-list">
         <div th:if="${reservations.isEmpty()}">
             <p>You have no reservations.</p>
         </div>
-        <div th:each="reservation : ${reservations}" class="reservation-card"
+
+        <div th:each="reservation : ${reservations}"
              th:with="
                 startTime=${T(java.time.LocalTime).of(reservation.reservationTimeStart / 60, reservation.reservationTimeStart % 60)},
+                endTime=${T(java.time.LocalTime).of(reservation.reservationTimeStop / 60, reservation.reservationTimeStop % 60)},
                 reservationDateTime=${T(java.time.LocalDateTime).of(reservation.reservationDate, startTime)},
                 now=${T(java.time.LocalDateTime).now()}
-             ">
-            <p>
-                Room ID: <span th:text="${reservation.reservationRoomId}"></span><br>
-                Date: <span th:text="${reservation.reservationDate}"></span><br>
-                Time: <span th:text="${startTime}"></span> -
-                <span th:text="${T(java.time.LocalTime).of(reservation.reservationTimeStop / 60, reservation.reservationTimeStop % 60)}"></span>
-            </p>
+             "
+             class="reservation-card">
 
-            <form th:if="${reservationDateTime.isAfter(now.plusMinutes(30))}"
-                  th:action="@{/cancel-reservation}" method="post">
-                <input type="hidden" name="reservationId" th:value="${reservation.reservationId}" />
-                <button type="submit">Cancel Reservation</button>
-            </form>
+            <div class="icon" th:switch="${reservation.reservationRoom.roomFunction}">
+                <span th:case="'Study Room'">✍️</span>
+                <span th:case="'Gym'">💪</span>
+                <span th:case="'Laundry'">🧺</span>
+                <span th:case="'TV Room'">📺</span>
+                <span th:case="'Ping-Pong'">🏓</span>
+                <span th:case="*">🏠</span>
+            </div>
+
+            <div class="reservation-content">
+                <h2 th:text="'📅 ' + ${reservation.reservationDate} + '  🕒 ' + ${startTime} + ' - ' + ${endTime}"></h2>
+                <p>
+                    <strong>Room:</strong> <span th:text="${reservation.reservationRoom.roomName}"></span><br>
+                    <strong>Function:</strong> <span th:text="${reservation.reservationRoom.roomFunction}"></span><br>
+                    <strong>Building:</strong> <span th:text="${reservation.reservationRoom.roomBuilding.buildingName}"></span>
+                </p>
+
+                <div class="reservation-actions"
+                     th:with="
+        startTime=${T(java.time.LocalTime).of(reservation.reservationTimeStart / 60, reservation.reservationTimeStart % 60)},
+        endTime=${T(java.time.LocalTime).of(reservation.reservationTimeStop / 60, reservation.reservationTimeStop % 60)},
+        reservationDateTimeStart=${T(java.time.LocalDateTime).of(reservation.reservationDate, startTime)},
+        reservationDateTimeEnd=${T(java.time.LocalDateTime).of(reservation.reservationDate, endTime)},
+        now=${T(java.time.LocalDateTime).now()}
+     ">
+
+                    <!-- more than 30 minutes -->
+                    <form th:if="${reservationDateTimeStart.isAfter(now.plusMinutes(30))}"
+                          th:action="@{/cancel-reservation}" method="post">
+                        <input type="hidden" name="reservationId" th:value="${reservation.reservationId}" />
+                        <button type="submit" class="danger">Remove</button>
+                    </form>
+
+                    <!-- from 0 to 30 -->
+                    <p th:if="${now.isBefore(reservationDateTimeStart)} and ${!reservationDateTimeStart.isAfter(now.plusMinutes(30))}">
+                        Cancellation of reservation is not possible
+                    </p>
+
+                    <!-- current reservation -->
+                    <p th:if="${now.isAfter(reservationDateTimeStart)} and ${now.isBefore(reservationDateTimeEnd)}">
+                        Currently reserved
+                    </p>
+
+                    <!-- finished -->
+                    <p th:if="${now.isAfter(reservationDateTimeEnd)}">
+                        Reservation is over
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </main>
+
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>

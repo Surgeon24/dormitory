@@ -1,4 +1,4 @@
-/* main styles */
+``/* main styles */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -322,4 +322,84 @@
     font-size: 0.85rem;
     color: #888;
     margin-bottom: 0.5rem;
+}
+
+
+.reservations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.reservation-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+    margin-top: 0.5rem;
+}
+
+.reservation-content h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.reservation-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.reservation-actions form {
+    display: inline;
+}
+
+.reservation-actions button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.reservation-actions button:hover {
+    background-color: #0056b3;
+}
+
+.reservation-actions .danger {
+    background-color: #dc3545;
+}
+
+.reservation-actions .danger:hover {
+    background-color: #a71d2a;
+}
+
+.filter {
+    margin-bottom: 1rem;
+}
+
+.button {
+    padding: 0.5rem 1rem;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: #45a049;
 }

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Controller
@@ -24,13 +26,30 @@ public class ReservationsController {
     private ReservationService reservationService;
 
     @GetMapping("/reservations")
-    public String myReservations(Model model, Principal principal) {
+    public String myReservations(@RequestParam(name = "showFinished", defaultValue = "false") boolean showFinished,
+                                 Model model, Principal principal) {
         User currentUser = userService.findByUserEmail(principal.getName());
         Integer userId = currentUser.getUserId();
-        List<Reservation> reservations = reservationService.getUserReservationsById(userId);
-        model.addAttribute("reservations", reservations);
+
+        List<Reservation> allReservations = reservationService.getUserReservationsById(userId);
+
+        if (!showFinished) {
+            LocalDateTime now = LocalDateTime.now();
+            // Фильтрация: только те, у которых endTime после текущего времени
+            allReservations = allReservations.stream()
+                    .filter(res -> {
+                        LocalTime endTime = LocalTime.of(res.getReservationTimeStop() / 60, res.getReservationTimeStop() % 60);
+                        LocalDateTime resEnd = LocalDateTime.of(res.getReservationDate(), endTime);
+                        return resEnd.isAfter(now);
+                    })
+                    .toList();
+        }
+
+        model.addAttribute("reservations", allReservations);
+        model.addAttribute("showFinished", showFinished); // чтобы кнопка отображалась корректно
         return "reservations";
     }
+
 
     @PostMapping("/cancel-reservation")
     public String cancelReservation(@RequestParam("reservationId") Integer reservationId) {

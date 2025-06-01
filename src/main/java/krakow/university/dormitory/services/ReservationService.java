@@ -19,6 +19,9 @@ public class ReservationService {
     public List<Reservation> getUserReservationsById(Integer userId) {
         return reservationRepository.findByReservationUserIdAndReservationIsActiveOrderByReservationDateDescReservationTimeStartDesc(userId, 1);
     }
+//    public List<Reservation> getUserReservationsById(Integer userId) {
+//        return reservationRepository.findWithRoomByReservationUserId(userId);
+//    }
 
     public List<Reservation> getReservationsByRoomId(Integer roomId) {
         return reservationRepository.findByReservationRoomId(roomId);
