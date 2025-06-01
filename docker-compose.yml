@@ -13,7 +13,12 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./src/main/resources/static/arrpwa_db_v3.sql:/docker-entrypoint-initdb.d/arrpwa_db_v3.sql
+
+
+#    volumes:
+#      - mysql_data:/var/lib/mysql
+#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - dormitory-net
 
