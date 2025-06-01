@@ -25,6 +25,11 @@ public class ReservationsController {
     @Autowired
     private ReservationService reservationService;
 
+    public ReservationsController(UserService userService, ReservationService reservationService) {
+        this.userService = userService;
+        this.reservationService = reservationService;
+    }
+
     @GetMapping("/reservations")
     public String myReservations(@RequestParam(name = "showFinished", defaultValue = "false") boolean showFinished,
                                  Model model, Principal principal) {
@@ -35,7 +40,6 @@ public class ReservationsController {
 
         if (!showFinished) {
             LocalDateTime now = LocalDateTime.now();
-            // Фильтрация: только те, у которых endTime после текущего времени
             allReservations = allReservations.stream()
                     .filter(res -> {
                         LocalTime endTime = LocalTime.of(res.getReservationTimeStop() / 60, res.getReservationTimeStop() % 60);

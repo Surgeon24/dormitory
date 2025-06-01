@@ -85,4 +85,8 @@ public class User {
                 ", userPassword='" + userPassword + '\'' +
                 '}';
     }
+
+    public void setEmail(String mail) {
+        this.userEmail = mail;
+    }
 }

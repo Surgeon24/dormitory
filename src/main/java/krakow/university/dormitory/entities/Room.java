@@ -97,4 +97,8 @@ public class Room {
                 ", roomBuilding=" + roomBuilding +
                 '}';
     }
+
+    public void setId(int roomId) {
+        this.roomId = roomId;
+    }
 }
