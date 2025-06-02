@@ -120,6 +120,7 @@
     margin-bottom: 1rem;
     border: 1px solid #ccc;
     border-radius: 6px;
+    box-sizing: border-box;
 }
 
 .login-container button {
@@ -131,6 +132,7 @@
     border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
+    box-sizing: border-box;
 }
 
 .login-container button:hover {
@@ -579,4 +581,33 @@
 .available {
     background-color: green;
 }
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.week-nav-btn {
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+    color: #333;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    transition: background-color 0.2s;
+}
+
+.week-nav-btn:hover {
+    background-color: #ddd;
+}
+
+.active-btn {
+    background-color: #3399ff;
+    color: white;
+    border-color: #3399ff;
+}
+
 
