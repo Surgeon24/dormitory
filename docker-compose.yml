@@ -16,6 +16,12 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - dormitory-net
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
   app:
     build:
@@ -35,6 +41,7 @@ services:
 
 volumes:
   mysql_data:
+
 
 networks:
   dormitory-net:
