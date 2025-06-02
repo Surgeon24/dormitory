@@ -10,7 +10,9 @@
 
 <main class="container">
     <section class="room-list-header">
-        <a th:href="'/facilities/'" class="secondary-btn">Back</a>
+        <a th:href="'/facilities/'" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> Back
+        </a>
         <h1 th:text="'Available ' + ${roomFunction} + ' rooms'">Room List</h1>
         <p th:if="${#lists.isEmpty(rooms)}">No rooms available at the moment.</p>
     </section>

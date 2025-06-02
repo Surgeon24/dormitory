@@ -78,6 +78,42 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+@media (max-width: 768px) {
+    .welcome-section {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .welcome-card-image img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .steps-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .links-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .link-card {
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .link-card .icon {
+        width: 40px;
+        height: 40px;
+    }
+}
+
 .icon {
     width: 32px;
     height: 32px;
