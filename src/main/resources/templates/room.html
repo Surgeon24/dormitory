@@ -53,10 +53,10 @@
         <div class="button-group">
             <a th:href="@{'/reserve/room/' + ${room.roomId} + '?week=current'}"
                th:classappend="${selectedWeek == 'current'} ? ' active-btn' : ''"
-               class="btn">Current Week</a>
+               class="btn week-nav-btn" title="Current Week">Current Week</a>
             <a th:href="@{'/reserve/room/' + ${room.roomId} + '?week=next'}"
                th:classappend="${selectedWeek == 'next'} ? ' active-btn' : ''"
-               class="btn">Next Week</a>
+               class="btn week-nav-btn" title="Next Week">Next Week</a>
         </div>
 
         <p th:if="${#lists.isEmpty(reservations)}">No reservations made for this week.</p>

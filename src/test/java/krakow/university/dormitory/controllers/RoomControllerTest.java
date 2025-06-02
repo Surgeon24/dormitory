@@ -16,6 +16,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -83,6 +84,32 @@ class RoomControllerTest {
         return ra;
     }
 
-    // Дополнительные тесты на невалидные случаи, конфликты и т.д. можно добавить по аналогии
+    @Test
+    void showRoomById_validRoom_returnsRoomView() throws Exception {
+        int roomId = 1;
+
+        Building building = new Building();
+        building.setBuildingName("Main Building");
+
+        Room room = new Room();
+        room.setRoomId(roomId);
+        room.setRoomBuilding(building);
+        room.setRoomFunction("Conference");
+
+        when(roomService.getRoomById(roomId)).thenReturn(room);
+
+        List<RoomAvailability> availabilities = List.of();
+        when(roomAvailabilityService.getRoomAvailabilitiesByRoomId(roomId)).thenReturn(availabilities);
+
+        List<Reservation> reservations = List.of();
+        when(reservationService.getReservationsByRoomId(roomId)).thenReturn(reservations);
+
+        mockMvc.perform(get("/reserve/room/{id}", roomId))
+                .andExpect(status().isOk())
+                .andExpect(view().name("room"))
+                .andExpect(model().attributeExists("room"))
+                .andExpect(model().attribute("roomFunction", "Conference"));
+    }
+
 }
 

@@ -78,6 +78,42 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+@media (max-width: 768px) {
+    .welcome-section {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .welcome-card-image img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .steps-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .links-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .link-card {
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .link-card .icon {
+        width: 40px;
+        height: 40px;
+    }
+}
+
 .icon {
     width: 32px;
     height: 32px;
@@ -120,6 +156,7 @@
     margin-bottom: 1rem;
     border: 1px solid #ccc;
     border-radius: 6px;
+    box-sizing: border-box;
 }
 
 .login-container button {
@@ -131,6 +168,7 @@
     border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
+    box-sizing: border-box;
 }
 
 .login-container button:hover {
@@ -580,3 +618,69 @@
     background-color: green;
 }
 
+.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.week-nav-btn {
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+    color: #333;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    transition: background-color 0.2s;
+}
+
+.week-nav-btn:hover {
+    background-color: #ddd;
+}
+
+.active-btn {
+    background-color: #3399ff;
+    color: white;
+    border-color: #3399ff;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2c3e50;
+    padding: 10px 20px;
+}
+
+.nav-links a {
+    color: #ecf0f1;
+    text-decoration: none;
+    margin-right: 15px;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background-color: #1abc9c;
+}
+
+.logout-form {
+    margin: 0;
+}
+
+.btn-logout {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-logout:hover {
+    background-color: #c0392b;
+}
